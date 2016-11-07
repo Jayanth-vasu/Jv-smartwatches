@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<on-start>
+
+
+		<evaluate expression="checkOut.addressFlow()" result="flowScope.shippingAddress" />
+	</on-start>
+
+	<!-- if not specified the first view state is the starting state -->
+	 <action-state id="snapshot">
+	<evaluate expression="checkOut.snapshot1()"></evaluate>
+	<transition to="shippingaddress"></transition>
+	</action-state> 
+
+	<view-state id="shippingaddress" view="shippingaddress"
+		model="flowScope.shippingAddress">
+		<transition on="save" to="orderDetails" />
+
+
+	</view-state>
+
+	<!-- <action-state id="cartItem"> <evaluate expression="checkOut.cartItem(httpSession,principal)"></evaluate> 
+		<transition to="orderDetails" /> </action-state> -->
+
+	<view-state id="orderDetails" view="orderConfirmation"
+		model="flowScope.shippingAddress">
+		<transition on="edit" to="shippingaddress" />
+		<transition on="submit" to="saveAddress" />
+	</view-state>
+
+	<action-state id="saveAddress">
+		<evaluate expression="checkOut.saveAddress(shippingAddress)"></evaluate>
+		<transition to="payment" />
+
+	</action-state>
+
+
+
+	<view-state id="payment" view="payment">
+		<transition on="proceed" to="saveorder" />
+	</view-state>
+
+	<action-state id="saveorder">
+		<evaluate expression="checkOut.saveOrder(shippingAddress)"></evaluate>
+
+		<transition to="stock" />
+
+	</action-state>
+
+	<action-state id="stock">
+		<evaluate expression="checkOut.getStock()"></evaluate>
+		<transition to="invoice" />
+	</action-state>
+
+
+
+	
+	<end-state id="invoice" view="invoice">
+	
+	</end-state>
+
+
+</flow>

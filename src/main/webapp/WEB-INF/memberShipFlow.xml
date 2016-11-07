@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+
+	<on-start>
+		<!-- demohandler is java class available through annotated Demohandler.java 
+			class.here we are calling it’s initFlow() method. -->
+		<evaluate expression="registrationHandler.startFlow()"
+			result="flowScope.userDetails" />
+	</on-start>
+
+	<!-- if not specified the first view state is the starting state -->
+	<view-state id="start" view="register" model="flowScope.userDetails">
+		<transition on="submit" to="validate" />
+	</view-state>
+
+	<action-state id="validate">
+		<evaluate
+			expression="registrationHandler.validateDetails(userDetails,messageContext)"></evaluate>
+		<transition on="success" to="checkuser" />
+		<transition on="failure" to="start" />
+	</action-state>
+
+	<action-state id="checkuser">
+		<evaluate expression="registrationHandler.loginuser(userDetails)"></evaluate>
+		<transition on="success" to="confirmDetails" />
+		<transition on="failure" to="alreadyExists" />
+	</action-state>
+
+
+	<view-state id="alreadyExists" view="alreadyExists" model="flowScope.userDetails">
+
+	</view-state>
+
+	<view-state id="confirmDetails" view="confirmDetails" model="flowScope.userDetails">
+		<transition on="edit" to="start" />
+		<transition on="submit" to="sendmail" />
+	</view-state>
+
+
+	<action-state id="sendmail">
+		<evaluate expression="registrationHandler.sendMail(userDetails)"></evaluate>
+		<transition on="true" to="saveregister" />
+		<transition on="false" to="confirmDetails" />
+	</action-state>
+
+	<action-state id="saveregister">
+		<evaluate expression="registrationHandler.saveRegister(userDetails)"></evaluate>
+		<transition to="welcome" />
+	</action-state>
+
+
+	<end-state id="welcome" view="index" />
+	<end-state id="toHome" view="externalRedirect:contextRelative:index.jsp" />
+	<end-state id="toException"
+		view="externalRedirect:contextRelative:exception.jsp" />
+
+</flow>
