@@ -14,7 +14,9 @@ import java.io.Serializable;
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.activation.DataHandler;
@@ -44,7 +46,11 @@ import org.springframework.webflow.execution.RequestContext;
 
 import com.niit.shopping.service.ProductService;
 import com.niit.shopping.service.RegisterService;
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
+
+import com.twilio.Twilio;
+import com.twilio.http.TwilioRestClient;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
 
 @Component
 public class CheckOut implements Serializable {
@@ -64,9 +70,12 @@ public class CheckOut implements Serializable {
 	RegisterService registerService;
 
 	public void saveAddress(ShippingAddress shippingAddress) {
-
+		try{
 		productService.saveAddress(shippingAddress);
-
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 		/*
 		 * session.setAttribute("cartItem",
 		 * productService.getCartByUser(activeuser.getName()));
@@ -75,12 +84,16 @@ public class CheckOut implements Serializable {
 	}
 
 	public void saveOrder(ShippingAddress shippingAddress) {
+		try{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		OrderDetails orderDetails = new OrderDetails();
+		
+		
 
 		for (int i = 0; i < productService.getCartlistByUser(username).size(); i++) {
-
+			
+			if(productService.getCartlistByUser(username).size()>=0){
 			List<Cart> cartlist = productService.getCartlistByUser(username);
 			System.out.println(i);
 
@@ -90,30 +103,38 @@ public class CheckOut implements Serializable {
 			orderDetails.setShippingAddress(shippingAddress);
 
 			orderDetails.setUserDetails(registerService.getUserByUsername(username));
-			
-			DateFormat df=new SimpleDateFormat("dd/MM/yy HH:mm:ss");
-			Date date=new Date();
+
+			DateFormat df = new SimpleDateFormat("dd/MM/yy HH:mm:ss");
+			Date date = new Date();
 			String str = df.format(date);
-			
-			String [] strarr = str.split("\\s");
-			
-			String datevar=strarr[0];
-			
+
+			String[] strarr = str.split("\\s");
+
+			String datevar = strarr[0];
+
 			String time = strarr[1];
-			
-			//String str = String.format("ordered on ",date);
-			
+
+			// String str = String.format("ordered on ",date);
+
 			orderDetails.setDate(datevar);
-			
+
 			orderDetails.setTime(time);
+			
+			orderDetails.setSentMail(false);
 
 			productService.saveOrder(orderDetails);
+			}
 
+		}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
 		}
 
 	}
 
 	public void getStock() {
+		try{
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String username = auth.getName();
 		List<OrderDetails> orderDetails = productService.getOrderlist(username);
@@ -132,77 +153,73 @@ public class CheckOut implements Serializable {
 			productService.updatecartStock(product_id, username, stock);
 
 		}
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 
 	@Autowired
 	RegistrationEmailAPI registrationEmailAPI;
-	
+
 	@Autowired
 	MailSender mailsend;
-	
+
 	@Autowired
 	JavaMailSender mail;
-	
 
-	public  void snapshot() throws MessagingException {
-	    	 Authentication auth= SecurityContextHolder.getContext().getAuthentication();
-	    		String username=auth.getName();
-	    		
-	    		
-	            
-	            String toAddr =username;
-	    		String fromAddr = "jayanthvasu89@gmail.com";
-	    		// email subject
-	    		String subject = "Mail from JV Smartwatches";
+	public void snapshot() throws MessagingException {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
 
-	    		// email body
-	    		String body="cart details";
-	    		
-	    		//Multipart multipart = new MimeMultipart();
-	    		
-	    		
-	    		
-	    		/*MimeBodyPart imagePart= new MimeBodyPart();
-	    		String filename="C:\\Users\\Jayanth Vasu\\Desktop\\invoice.jpg";
-	    		DataSource source=new FileDataSource(filename);
-	    		imagePart.setDataHandler(new DataHandler(source));
-	    		imagePart.setFileName(filename);
-	    		multipart.addBodyPart(imagePart);*/
-	    		
-	    		
-	    		
-	    		
-	        try {
-	            Robot robot = new Robot();
-	            String format = "jpg";
-	            String fileName = "invoice." + format;
-	             
-	            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-	            Rectangle captureRect = new Rectangle(0, 0, screenSize.width, screenSize.height);
-	            BufferedImage screenFullImage = robot.createScreenCapture(captureRect);
-	            ImageIO.write(screenFullImage, format, new File(fileName));
-	            
-	           FileSystemResource file = new FileSystemResource("C:\\Users\\Jayanth Vasu\\Desktop\\invoice.jpg");
-	           
-	           MimeMessage mimeMessage = mail.createMimeMessage();
-	           
-	           MimeMessageHelper message = new MimeMessageHelper(mimeMessage,true);
-	           
-	           message.addAttachment(file.getFilename(),file);
-	           
-	           //mail.send(mimeMessage);
-	    		
-	    		//imagePart.attachFile("C:\\Users\\Jayanth Vasu\\Desktop\\invoice.jpg");
-	    		
-	    		
-	    		
-	    		registrationEmailAPI.readyToSendEmail(toAddr, fromAddr, subject,body);
-	            System.out.println("A partial screenshot saved!");
-	        } catch (AWTException | IOException ex) {
-	            System.err.println(ex);
-	        }
-	    }
+		String toAddr = username;
+		String fromAddr = "jayanthvasu89@gmail.com";
+		// email subject
+		String subject = "Mail from JV Smartwatches";
+
+		// email body
+		String body = "cart details";
+
+		// Multipart multipart = new MimeMultipart();
+
+		/*
+		 * MimeBodyPart imagePart= new MimeBodyPart(); String
+		 * filename="C:\\Users\\Jayanth Vasu\\Desktop\\invoice.jpg"; DataSource
+		 * source=new FileDataSource(filename); imagePart.setDataHandler(new
+		 * DataHandler(source)); imagePart.setFileName(filename);
+		 * multipart.addBodyPart(imagePart);
+		 */
+
+		try {
+			Robot robot = new Robot();
+			String format = "jpg";
+			String fileName = "invoice." + format;
+
+			Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+			Rectangle captureRect = new Rectangle(0, 0, screenSize.width, screenSize.height);
+			BufferedImage screenFullImage = robot.createScreenCapture(captureRect);
+			ImageIO.write(screenFullImage, format, new File(fileName));
+
+			FileSystemResource file = new FileSystemResource("C:\\Users\\Jayanth Vasu\\Desktop\\invoice.jpg");
+
+			MimeMessage mimeMessage = mail.createMimeMessage();
+
+			MimeMessageHelper message = new MimeMessageHelper(mimeMessage, true);
+
+			message.addAttachment(file.getFilename(), file);
+
+			// mail.send(mimeMessage);
+
+			// imagePart.attachFile("C:\\Users\\Jayanth
+			// Vasu\\Desktop\\invoice.jpg");
+
+			registrationEmailAPI.readyToSendEmail(toAddr, fromAddr, subject, body);
+			System.out.println("A partial screenshot saved!");
+		} catch (AWTException | IOException ex) {
+			System.err.println(ex);
+		}
+	}
 
 	public void snapshot1() {
 		Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
@@ -215,4 +232,38 @@ public class CheckOut implements Serializable {
 		}
 
 	}
+
+	
+
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public void sendMessage() {
+		try{
+		String ACCOUNT_SID = "ACab53031ce7b595355fd0aa759b9edf4c";
+		String AUTH_TOKEN = "210a0ca7a1f3bdf0bb7f5e55203235dc";
+		Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String username = auth.getName();
+		List<OrderDetails> orderDetails = productService.getOrderlist(username);
+		
+		
+		ArrayList list = new ArrayList();
+		for(int i=0;i<orderDetails.size();i++){
+			
+			list.add("you have ordered :"+orderDetails.get(i).getCart().getProductName());
+			list.add("price:"+orderDetails.get(i).getCart().getProductPrice());
+			list.add("quantity:"+orderDetails.get(i).getCart().getQuantity());
+			list.add("ordered on:"+orderDetails.get(i).getDate());
+			
+			
+		
+		}
+		Message message = Message.creator(new PhoneNumber("+919884910150"), new PhoneNumber("+12566458187"),
+				""+list).create();
+
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 }

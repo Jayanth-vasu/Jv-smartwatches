@@ -79,109 +79,112 @@
 }
 </style>
 <script>
-
-
-
-
-
 	var app = angular.module('invoice', []);
 	app.controller('invoiceController', function($scope, $http) {
 		$http({
 			method : 'GET',
 			url : 'http://localhost:8089/jvsmartwatches/order'
 		}).success(function(data, status, headers, config) {
-			
+
 			$scope.orderDetails = data;
-			
-			
+
 		});
-		
+
 		$scope.getTotal = function() {
 			var totalPrice = 0;
 			for (var i = 0; i < $scope.orderDetails.length; i++) {
-				totalPrice = $scope.orderDetails[i].cart.productPrice * $scope.orderDetails[i].cart.quantity;
+				totalPrice += $scope.orderDetails[i].cart.productPrice
+						* $scope.orderDetails[i].cart.quantity;
 			}
-			
+
 			return totalPrice;
 		}
-		
-	});
-	
-	
 
-	
+	});
 </script>
 
 
-<div class="container" >
-<div class="invoice-box" >
-	<table cellpadding="0" cellspacing="0" data-ng-app="invoice" data-ng-controller="invoiceController">
-		<tr class="top">
-			<td colspan="2">
-				<table>
-					<tr>
-						<td class="title"><img
-							src="<c:url value="/resources/img/jv1.jpg" />"></td>
-
-						
-					</tr>
-				</table>
-			</td>
-		</tr>
-
-		<tr class="information">
-			<td colspan="2">
-				<table>
-					<tr>
-					
-						<td class='pull-left control-group'>{{orderDetails[0].userDetails.user_firstname}} {{orderDetails[0].userDetails.user_lastname}}<br>
-						${pageContext.request.userPrincipal.name}<br> {{orderDetails[0].userDetails.mobile_number}}<br> 
-						</td>
-
-						<td class='pull-right control-group'> 
-						${shippingAddress.street_name}<br>
-						${shippingAddress.city}-${shippingAddress.post_code}<br>
-						${shippingAddress.state},${shippingAddress.country}<br>
-							 
-						
-						</td>
-					</tr>
-				</table>
-			</td>
-		</tr>
-
-
-
-		<tr class="heading">
-			<td>Item</td>
-
-			<td>Quantity</td>
-
-			<td>Price</td>
-			
-			
-		</tr>
-
-
-		<tr class="item" data-ng-repeat="or in orderDetails">
-			<td>{{or.cart.productName}}</td>
-			
-			<td align="center">{{or.cart.quantity}}</td>
-			
-			
-			<td>{{or.cart.productPrice}}</td>
-		</tr>
-
-
-
-		<tr class="total">
-			<td></td>
-			<td></td>
-			<td>Total:{{getTotal()}}</td>
-		</tr>
-	</table>
+<div class="container">
+	<div class="jumbotron" style="background-color: white;padding-bottom: 10px;padding-top:10px ">
+	<h2 style="color:green">Your transaction was successfull</h2>
+	<h4>Track your order status in the Orders option.Your order will be delivered within a week.</h4>
+	<br>
+	<br>
+	<h4>Thanks and regards,</h4>
+	<h2>JV Smartwatches</h2>
 	
+	</div>
+	
+	<div class="invoice-box">
+		<table cellpadding="0" cellspacing="0" data-ng-app="invoice"
+			data-ng-controller="invoiceController">
+			<tr class="top">
+				<td colspan="2">
+					<table>
+						<tr>
+							<td class="title"><img
+								src="<c:url value="/resources/img/jv1.jpg" />"></td>
+
+
+						</tr>
+					</table>
+				</td>
+			</tr>
+
+			<tr class="information">
+				<td colspan="2">
+					<table>
+						<tr>
+
+							<td class='pull-left control-group'>{{orderDetails[0].userDetails.user_firstname}}
+								{{orderDetails[0].userDetails.user_lastname}}<br>
+								${pageContext.request.userPrincipal.name}<br>
+								{{orderDetails[0].userDetails.mobile_number}}<br>
+							</td>
+
+							<td class='pull-right control-group'>
+								${shippingAddress.street_name}<br>
+								${shippingAddress.city}-${shippingAddress.post_code}<br>
+								${shippingAddress.state},${shippingAddress.country}<br>
+
+
+							</td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+
+
+
+			<tr class="heading">
+				<td >Item</td>
+
+				<td >Quantity</td>
+
+				<td align="center">Price</td>
+
+
+			</tr>
+
+
+			<tr class="item" data-ng-repeat="or in orderDetails">
+				<td>{{or.cart.productName}}</td>
+
+				<td align="center">{{or.cart.quantity}}</td>
+
+
+				<td align="center">{{or.cart.productPrice}}</td>
+			</tr>
+
+
+
+			<tr class="total" align="center">
+				<td></td>
+				<td></td>
+				<td align="center">Total:{{getTotal()}}</td>
+			</tr>
+		</table>
+
+	</div>
 </div>
-</div>
-</body>
-</html>
+<%@ include file="/WEB-INF/views/footer.jsp"%>

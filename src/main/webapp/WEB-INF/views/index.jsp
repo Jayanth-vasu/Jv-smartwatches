@@ -1,6 +1,41 @@
 
 <%@include file="/WEB-INF/views/header.jsp"%>
+<style>
+.newlaunch-box {
+	max-width: 1500px;
+	margin: auto;
+	padding: 30px;
+	border: 1px solid #eee;
+	box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+	font-size: 16px;
+	line-height: 24px;
+	font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+	color: #555;
+}
 
+.viewall {
+	background-color: #00bfff; 
+	border: none;
+	color: white;
+	padding: 8px 10px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	width: 40%;
+	
+}
+
+.carousel-control.left{
+background-image: linear-gradient(to right,rgba(0,0,0,0) 0,rgba(0,0,0,.0001) 100%);
+}
+
+.carousel-control.right
+{
+background-image: linear-gradient(to right,rgba(0,0,0,0) 0,rgba(0,0,0,.0001) 100%);
+}
+
+</style>
 <div class="container">
 
 	<div class="row">
@@ -20,7 +55,7 @@
 				</ul>
 			</c:forEach>
 
-			
+
 		</div>
 
 
@@ -39,8 +74,7 @@
 				<div class="carousel-inner">
 
 					<div class="item active">
-						<img
-							src="<c:url value="/resources/img/moto360slide.jpg" />"
+						<img src="<c:url value="/resources/img/moto360slide.jpg" />"
 							alt=" ">
 					</div>
 					<!---item1--->
@@ -126,83 +160,87 @@
 	<%-- <%@ include file="productcarousel.jsp"%> --%>
 	<br>
 
-	<h1>
-		<center>NEW LAUNCHES</center>
-	</h1>
-	<div class="content row">
-		<div class="col-xs-3 ">
-			<p>
-				<a href=''><img class="img-responsive"
-					src="http://img5a.flixcart.com/image/smartwatch/z/m/p/ap3631ab1k8-motorola-200x200-imaeg57knxjgggwp.jpeg"
-					alt=" "></a>
-			</p>
-		</div>
 
+	<div class="newlaunch-box" >
+		
+		<div class="content row" >
+		
+		<div class="col-xs-3 " style="padding-right:20px">
+				<h2 style="padding-top:50px">NEW LAUNCHES</h2>
+				<div align="center"><a href="<c:url value="/viewallproducts"/>" ><button class="viewall" >VIEW ALL</button></a></div>
+			</div>
+		
 		<div class="col-xs-3">
-			<p>
-				<a href='#'><img class="img-responsive"
-					src="http://img5a.flixcart.com/image/smartwatch/b/t/g/ap3627at6k8-motorola-200x200-imaebunsrxyhsg4w.jpeg"
-					alt=" "></a>
-			</p>
+		<img class="img-responsive "
+					src="<c:url value="/resources/img/moto2.jpeg"/>" style="width:75%"
+					alt=" ">
+					<h4> Moto 360 2nd Gen</h4>
+					
+					
+		
 		</div>
-
-		<div class="col-xs-3 ">
-			<p>
-				<a href='#'><img class="img-responsive "
-					src="http://img5a.flixcart.com/image/smartwatch/q/j/z/na-sony-200x200-imaehzkzfaczjzhn.jpeg"
-					alt=" "></a>
-			</p>
-		</div>
-
-		<div class="col-xs-3 ">
-			<p>
-				<a href='#'><img class="img-responsive"
-					src="http://img6a.flixcart.com/image/smartwatch/2/c/n/sm03-alcatel-200x200-imaejwfzargazwqn.jpeg"
-					alt=" "></a>
-			</p>
-		</div>
-
-	</div>
-	<hr>
-
-	<h1>
-		<center>BEST SALES</center>
-	</h1>
-	<div class="content row">
-		<div class="col-xs-3 ">
-			<p>
-				<a href=''><img class="img-responsive"
-					src="http://img6a.flixcart.com/image/smartwatch/w/h/p/ap3627as6k8-motorola-200x200-imaebunsrt3x3gnh.jpeg"
-					alt=" "></a>
-			</p>
-		</div>
-
+		
 		<div class="col-xs-3">
-			<p>
-				<a href='#'><img class="img-responsive"
-					src="http://img5a.flixcart.com/image/smartwatch/j/z/j/ap3628ab1k8-motorola-200x200-imaebuntnzzrryug.jpeg"
-					alt=" "></a>
-			</p>
+		<img class="img-responsive "
+					src="<c:url value="/resources/img/fossil1.jpeg"/>" style="width:58%"
+					alt=" ">
+			<h4>Fossil Marshall Smartwatch</h4>
+				
 		</div>
-
-		<div class="col-xs-3 ">
-			<p>
-				<a href='#'><img class="img-responsive "
-					src="http://img5a.flixcart.com/image/smartwatch/v/c/m/ap3629an7k8-motorola-200x200-imaebunt8hzvfsyj.jpeg"
+		
+		
+		<div class="col-xs-3">
+		<a href="#"><img class="img-responsive "
+					src="<c:url value="/resources/img/huawei1.jpeg"/>" style="width:55%"
 					alt=" "></a>
-			</p>
+					<h4>Huawei  Smartwatch</h4>
+		
 		</div>
-
-		<div class="col-xs-3 ">
-			<p>
-				<a href='#'><img class="img-responsive"
-					src="http://img6a.flixcart.com/image/smartwatch/8/y/t/wi501q-2lblu0015-asus-200x200-imaeegsfgfnwy3du.jpeg"
-					alt=" "></a>
-			</p>
-		</div>
-
-	</div>
+		
+		
+		
 	
+			
+		</div>
+	</div>
+	<br>
+	<br>
+	<br>
+	<div class="newlaunch-box" style="padding-top:20px">
+		
+		<div class="content row">
+		
+		<div class="col-xs-3 " style="padding-right:20px">
+				<h2 style="padding-top:50px">BEST SELLERS</h2>
+				<div align="center"><a href="<c:url value="/viewallproducts"/>" ><button class="viewall" >VIEW ALL</button></a></div>
+			</div>
+		
+		<div class="col-xs-3">
+		<img class="img-responsive "
+					src="<c:url value="/resources/img/moto1.jpeg"/>"style="width:75%"
+					alt=" ">
+			<h4> Moto 360 Sport Smartwatch</h4>
+		</div>
+		
+		<div class="col-xs-3">
+		<img class="img-responsive "
+					src="<c:url value="/resources/img/asus1.jpeg"/>"style="width:55%"
+					alt=" ">
+		<h4>Asus ZenWatch 2 Silver Case</h4>
+		</div>
+		
+		
+		<div class="col-xs-3">
+		<img class="img-responsive "
+					src="<c:url value="/resources/img/apple3.jpeg"/> "style="width:75%"
+					alt=" ">
+		<h4>Apple Watch </h4>
+		</div>
+	
+			
+		</div>
+	</div>
+
 </div>
 
 

@@ -22,7 +22,7 @@ public class CartDAOImpl implements CartDAO{
 	public boolean checkProduct(Cart cart) {
 		boolean isvalid=false;
 		
-		Query q=session.openSession().createQuery("from Cart where product_id='"+cart.getProduct_id()+"' and mail_id='"+cart.getCheckUser()+"'");
+		Query q=session.openSession().createQuery("from Cart where product_id='"+cart.getProduct_id()+"' and mail_id='"+cart.getCheckUser()+"' and orderstatus='true'");
 		
 		List<Cart> ul= q.list();
 		int s=ul.size();

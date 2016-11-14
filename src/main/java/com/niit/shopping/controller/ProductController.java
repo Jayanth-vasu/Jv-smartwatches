@@ -44,15 +44,21 @@ public class ProductController {
 	@RequestMapping("/product")
 
 	public String listPersons(HttpSession session, ProductDetails productDetails) {
+		try{
 		
 		session.setAttribute("listProducts", productService.listProducts());
 		session.setAttribute("listBrands", productService.listBrands());
 		
 		return "product";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 
 	@RequestMapping(value = "/product/add", method = RequestMethod.POST)
 	public String addProduct(@ModelAttribute("smartproducts") @Valid ProductDetails productDetails,BindingResult result,Model model ) {
+		try{
 		if(result.hasErrors())
 		{
 		  
@@ -73,21 +79,34 @@ public class ProductController {
 
 		return "redirect:/product";
 		}
+		}
+		catch (Exception e) {
+			return "404";
+		}
+		
 	}
 
 	@RequestMapping("/remove/{product_id}")
 	public String removeProduct(@PathVariable("product_id") int product_id, Model model) {
-
+		try{
 		productService.removeProduct(product_id);
 		model.addAttribute("listProducts", productService.listProducts());
 		return "brand";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 
 	@RequestMapping("/edit/{product_id}")
 	public ModelAndView editProduct(@PathVariable("product_id") int product_id) {
+		try{
 		ProductDetails productDetails = productService.getProductById(product_id);
 		return new ModelAndView("editproduct", "smartproducts", productDetails);
-
+		}
+		catch (Exception e) {
+			return new ModelAndView("404");
+		}
 	}
 
 	@RequestMapping("/viewall")
@@ -99,14 +118,18 @@ public class ProductController {
 	
 	@RequestMapping("/viewallproducts")
 	public String viewallproducts() {
-
+		try{
 		return "viewall";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 		
 	}
 
 	@RequestMapping(value="/update",method = RequestMethod.POST)
 	public String update(@ModelAttribute("smartproducts") @Valid ProductDetails productDetails,BindingResult result) {
-	
+		try{
 		if(result.hasErrors())
 		{
 		  
@@ -124,5 +147,9 @@ public class ProductController {
 		return "redirect:/viewallproducts";
 		
 	}
+		}
+		catch (Exception e) {
+			return "404";
+		}
 }
 }

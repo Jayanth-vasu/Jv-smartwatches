@@ -28,8 +28,12 @@ public class RegistrationHandler {
 	RegisterService regser;
 
 	public void saveRegister(UserDetails userDetails) {
-
+		try{
 		regser.saveOrUpdate(userDetails);
+		}
+		catch (Exception e) {
+		e.printStackTrace();
+		}
 
 	}
 
@@ -37,6 +41,7 @@ public class RegistrationHandler {
 	LoginService ls;
 
 	public String loginuser(UserDetails userDetails) {
+		
 		boolean isvaliduser = false;
 		String status = "success";
 		isvaliduser = ls.checkUser(userDetails);
@@ -67,7 +72,7 @@ public class RegistrationHandler {
 		String subject = "Mail from JV Smartwatches";
 
 		// email body
-		String body = "Thank You for registering with JV Smartwatches";
+		String body = "Thank You for registering with JV Smartwatches\n"+"Username:"+userDetails.getMail_id()+"\n"+"Password:"+userDetails.getPassword();
 		
 		try{
 		registrationEmailAPI.readyToSendEmail(toAddr, fromAddr, subject, body);
@@ -75,7 +80,7 @@ public class RegistrationHandler {
 		catch(Exception e){
 			System.out.println("an exception occured"+e);
 			e.printStackTrace();
-			status="false";
+			
 		}
 		
 				

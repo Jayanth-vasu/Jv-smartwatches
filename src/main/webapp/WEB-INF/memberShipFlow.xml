@@ -48,13 +48,11 @@
 
 	<action-state id="saveregister">
 		<evaluate expression="registrationHandler.saveRegister(userDetails)"></evaluate>
-		<transition to="welcome" />
+		<transition to="thankyou" />
 	</action-state>
 
 
-	<end-state id="welcome" view="index" />
-	<end-state id="toHome" view="externalRedirect:contextRelative:index.jsp" />
-	<end-state id="toException"
-		view="externalRedirect:contextRelative:exception.jsp" />
+	<end-state id="thankyou" view="thankyou" />
+	
 
 </flow>

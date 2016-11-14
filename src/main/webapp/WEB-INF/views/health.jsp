@@ -54,17 +54,7 @@
 	}
 </script>
 
-<div class="container">
-	<div class="row">
-		<div class="col-xs-12">
-			<a><center>
-					<img
-						src="https://img1a.flixcart.com/www/email/images/20160505-130640-moto360newlogo.jpg">
-				</center></a>
-			<p></p>
-		</div>
-	</div>
-</div>
+
 <div class="container" data-ng-app="smartnotifiers"
 	data-ng-controller="smartnotifiersController">
 
@@ -107,7 +97,7 @@
 
 							<h3>
 								<hr>
-								<label>{{cat.product_price}}</label>
+								<label>Rs.{{cat.product_price}}</label>
 							</h3>
 							<hr>
 						</div>
@@ -194,3 +184,4 @@
 
 
 
+<%@ include file="/WEB-INF/views/footer.jsp"%>

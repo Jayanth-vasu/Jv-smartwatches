@@ -94,23 +94,39 @@ div.bhoechie-tab-content {
 }
 
 div
+
+
 .bhoechie-tab
+
  
+
 div
+
+
 .bhoechie-tab-content
+
+
 :not
+
  
+
 (
 .active
+
  
+
 ){
 display
+
+
 :
+
  
+
 none
+
+
 ;
-
-
 }
 #debit {
 	padding-left: 150px;
@@ -144,14 +160,12 @@ none
 			<div class="bhoechie-tab-container">
 				<div class="bhoechie-tab-menu">
 					<div class="list-group">
-
-
-
-						<a href="#" class="list-group-item text-center">
-							<h4 class="glyphicon glyphicon-globe"></h4> <br />Net Banking
-						</a> <a href="#" class="list-group-item text-center">
+						
+						<a href="#" class="list-group-item text-center active" >
 							<h4 class="glyphicon glyphicon-credit-card"></h4> <br />Debit
 							Card
+						</a> <a href="#" class="list-group-item text-center">
+							<h4 class="glyphicon glyphicon-globe"></h4> <br />Net Banking
 						</a> <a ng-click="netbanking=true" href="#"
 							class="list-group-item text-center">
 							<h4 class="glyphicon glyphicon-usd"></h4> <br />Cash on
@@ -248,3 +262,4 @@ none
 	</div>
 </div>
 
+<%@ include file="/WEB-INF/views/footer.jsp"%>

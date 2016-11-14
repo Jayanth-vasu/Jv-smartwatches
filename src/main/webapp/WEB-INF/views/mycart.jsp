@@ -13,7 +13,7 @@
 		$scope.getTotal = function() {
 			var totalPrice = 0;
 			for (var i = 0; i < $scope.myCart.length; i++) {
-				totalPrice = $scope.myCart[i].productPrice
+				totalPrice += $scope.myCart[i].productPrice
 						* $scope.myCart[i].quantity;
 			}
 			return totalPrice;
@@ -153,9 +153,9 @@
 
 							<td class="col-xs-12">
 								<div class="row">
-									<div class="col-xs-5">
-										<a class="pull-left" href="#"> <img
-											src="<c:url value="/resources/img/{{cart.imagename}}"/>">
+									<div class="col-xs-5" >
+										<a class="pull-left" href="#" > <img
+											src="<c:url value="/resources/img/{{cart.imagename}}"/>"style="width:75%">
 										</a>
 									</div>
 

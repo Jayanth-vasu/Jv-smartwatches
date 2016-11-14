@@ -28,8 +28,12 @@ public class LoginController {
 
 	@RequestMapping("/login")
 	public String loginshow() {
-
+		try{
 		return "login";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 
 	@ModelAttribute("userDetails")

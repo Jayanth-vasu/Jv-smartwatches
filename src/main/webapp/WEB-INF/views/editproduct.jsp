@@ -68,18 +68,51 @@
 				</form:select>
 				<br>
 
-				<form:input path="product_description" required="true"
+				<form:textarea path="product_description"
 					class="form-control input-lg" placeholder="Product Description" />
 				<form:errors path="product_description" cssClass="error" />
-				<br>
 
-				<form:input path="product_price" required="true"
-					class="form-control input-lg" placeholder="Product price" />
-				
-				
-				<form:input type="file" path="image" required="true"/>
-				<form:errors path="image" cssClass="error" />
 				<br>
+				<div class="row">
+					<div class="col-xs-6">
+						<form:label path="product_price">Price</form:label>
+						<form:input path="product_price" class="form-control" rows="5"
+							placeholder="Product price" />
+						<form:errors path="product_price" cssClass="error" />
+					</div>
+
+
+
+
+					<div class="col-xs-6">
+						<form:label path="stock">Stock</form:label>
+						<form:input path="stock" class="form-control "
+							required="true" placeholder="Product in stock" />
+						<form:errors path="stock" cssClass="error" />
+
+					</div>
+				</div>
+				<br>
+				<div class="row">
+					<div class="col-xs-6">
+						<form:input path="status" class="form-control"
+							required="true" placeholder="Status" />
+						<form:errors path="status" cssClass="error" />
+					</div>
+
+					<div class="col-xs-6">
+						<form:label path="image">Product Image</form:label>
+						<form:input type="file" path="image" required="true" />
+						<form:errors path="image" cssClass="error" />
+					</div>
+					<br>
+				</div>
+
+
+
+
+
+<br>
 				
 
 

@@ -138,6 +138,23 @@ body, html {
 	border: 0;
 	background: transparent;
 }
+
+
+.signup-btn {
+	background: #79bc64;
+	background-image: -webkit-linear-gradient(top, #79bc64, #578843);
+	-webkit-border-radius: 4;
+	border-radius: 4px;
+	text-shadow: 0px 1px 0px #898a88;
+	-webkit-box-shadow: 0px 0px 0px #a4e388;
+	box-shadow: 0px 0px 0px #a4e388;
+	font-family: Arial;
+	color: #ffffff;
+	font-size: 15px;
+	padding: 10px 20px 10px 20px;
+	border: solid #3b6e22 1px;
+	text-decoration: none;
+}
 </style>
 <div class="container">
 	<div class="row">
@@ -214,12 +231,10 @@ body, html {
 						<div class="col-xs-2">
 
 
-							<button class="btn btn-success" name="_eventId_save" type="submit"
-								value="save">Save</button>
+							<button class="signup-btn" name="_eventId_save" type="submit"
+								value="save">Save </button>
 						</div>
-						<div class="col-xs-2">
-							<button class="btn btn-primary" name="_eventId_cancel" type="submit" value="cancel">Cancel</button>
-						</div>
+						
 
 					</div>
 		

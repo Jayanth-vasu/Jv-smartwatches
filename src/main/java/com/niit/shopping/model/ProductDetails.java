@@ -30,6 +30,9 @@ public class ProductDetails implements Serializable {
 	@NotNull(message="Please enter a Product price")
 	private Integer product_price;
 	
+	@NotEmpty(message="Please enter the status")
+	private String status;
+	
 	/*@OneToMany(mappedBy= "productDetails",cascade=CascadeType.ALL,fetch=FetchType.EAGER)
 	private List<ProductDetails> productList;*/
 	
@@ -46,6 +49,13 @@ public class ProductDetails implements Serializable {
 	private MultipartFile image;
 		
 	
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	public String getProduct_brand() {
 		return product_brand;
 	}

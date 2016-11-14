@@ -54,20 +54,11 @@
 	}
 </script>
 
-<div class="container">
-	<div class="row">
-		<div class="col-xs-12">
-			<a><center>
-					<img
-						src="https://img1a.flixcart.com/www/email/images/20160505-130640-moto360newlogo.jpg">
-				</center></a>
-			<p></p>
-		</div>
-	</div>
-</div>
+
 <div class="container" data-ng-app="smartnotifiers"
 	data-ng-controller="smartnotifiersController">
 
+<h1 align="center">SMART NOTIFIERS</h1>
 
 	<div class="row">
 		<div class="col-xs-8">
@@ -93,7 +84,7 @@
 			data-ng-repeat="cat in smartnotifiers | filter:category">
 			<div class="thumbnail">
 
-				<img src="<c:url value="/resources/img/{{cat.image_name}}" />"
+				<img src="<c:url value="/resources/img/{{cat.image_name}}" />" 
 					class="img-responsive">
 				<div class="caption">
 					<div class="row">
@@ -107,7 +98,7 @@
 
 							<h3>
 								<hr>
-								<label>{{cat.product_price}}</label>
+								<label>Rs.{{cat.product_price}}</label>
 							</h3>
 							<hr>
 						</div>
@@ -192,5 +183,5 @@
 
 </div>
 
-
+<%@ include file="/WEB-INF/views/footer.jsp"%>
 

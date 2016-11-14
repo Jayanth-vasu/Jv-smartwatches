@@ -97,7 +97,7 @@ function goBack() {
 
 
 			<div class="col-xs-3">
-				<img src="<c:url value="/resources/img/{{prd.image_name}}" />"
+				<img src="<c:url value="/resources/img/{{prd.image_name}}" />" style="width:75%"
 					class="img-responsive">
 			</div>
 
@@ -107,6 +107,8 @@ function goBack() {
 				<h5 ng-if="prd.stock>'0'">Available in stock: {{prd.stock}}</h5>
 				
 				<h5 ng-if="prd.stock=='0'" style="color: red">Out of stock</h5>
+				
+				<!-- <li>{{prd.product_description}}</li> -->
 			</div>
 
 			<div class="col-xs-4">

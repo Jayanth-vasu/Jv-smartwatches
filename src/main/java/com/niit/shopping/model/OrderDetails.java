@@ -38,12 +38,28 @@ public class OrderDetails implements Serializable{
 	@JoinColumn(name="mail_id")
 	private UserDetails userDetails;
 	
+	
+	
 	private String date;
 
 
 	private String time;
 	
 	
+	private boolean sentMail;
+	
+	
+	
+
+	public boolean isSentMail() {
+		return sentMail;
+	}
+
+
+	public void setSentMail(boolean sentMail) {
+		this.sentMail = sentMail;
+	}
+
 
 	public String getTime() {
 		return time;

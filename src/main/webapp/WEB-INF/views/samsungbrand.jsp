@@ -4,7 +4,7 @@
 <p></p>
 <p></p>
 <div class="container">
-	<hr>
+	
 	
 		<div class="row">
 			

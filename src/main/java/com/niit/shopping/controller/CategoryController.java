@@ -22,7 +22,12 @@ public class CategoryController {
 	@RequestMapping("/smartnotifiers")
 	public String smartnotifiers()
 	{
+		try{
 		return "smartnotifiers";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 	
 	@RequestMapping("/category/smartnotifiers")
@@ -35,7 +40,12 @@ public class CategoryController {
 	@RequestMapping("/watchphones")
 	public String watchphones()
 	{
+		try{
 		return "watchphones";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 	
 	@RequestMapping("/category/watchphones")
@@ -48,7 +58,12 @@ public class CategoryController {
 	@RequestMapping("/health")
 	public String health()
 	{
+		try{
 		return "health";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 	
 	@RequestMapping("/category/health")
@@ -62,7 +77,12 @@ public class CategoryController {
 	@RequestMapping("/fitness")
 	public String fitness()
 	{
-		return "fitness";
+		try{
+			return "fitness";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 	
 	@RequestMapping("/category/fitness")

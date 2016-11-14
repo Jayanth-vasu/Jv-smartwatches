@@ -47,7 +47,7 @@
 					<div class="row">
 						<div class="col-xs-5">
 							<a class="pull-left" href="#"> <img
-								src="<c:url value="/resources/img/{{order.cart.imagename}}"/>">
+								src="<c:url value="/resources/img/{{order.cart.imagename}}"/>" style="width:75%">
 							</a>
 						</div>
 

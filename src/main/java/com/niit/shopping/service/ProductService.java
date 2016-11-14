@@ -34,8 +34,10 @@ public interface ProductService {
 	public List<Cart> getCartlistByUser(String username);
 	public List<OrderDetails> getMyOrders(String username);
 	public int getOrderNumber(String username);
-	public void cancelorder(String name);
+	public void cancelorder(String name,int cart_id);
 	public void deleteCart(int cart_id,String username);
 	public void updateStockQuantity(int product_id, int quantity);
 	public List<Cart> getCartByCart_id(int cart_id, String name);
+	public List<Cart> getCartlistByStatus(String username);
+	
 }

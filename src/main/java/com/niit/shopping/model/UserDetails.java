@@ -28,7 +28,7 @@ public class UserDetails implements Serializable {
 	@Size(min = 2, max = 30)
 	private String user_lastname;
 
-	@Size(min = 2, max = 10)
+	@Size(min = 2)
 	private String password;
 
 	

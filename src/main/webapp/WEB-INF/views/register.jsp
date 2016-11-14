@@ -54,9 +54,7 @@ legend {
 	}
 }
 
-.top-buffer {
-	margin-top: 100px;
-}
+
 
 body, html {
 	height: 100%;
@@ -82,17 +80,15 @@ body, html {
 </style>
 
 <script>
+	function validate() {
 
-function validate(){
-	
-	var x=document.getElementById("firstname").value;
-	if(x.length==0|x.length>20){
-		x.setCustomValidity("Please enter a proper username")
+		var x = document.getElementById("firstname").value;
+		if (x.length == 0 | x.length > 20) {
+			x.setCustomValidity("Please enter a proper username")
+		} else {
+			x.setCustomValidity("");
+		}
 	}
-	else{
-		x.setCustomValidity("");
-	}
-}
 </script>
 
 
@@ -114,9 +110,9 @@ function validate(){
 				<p></p>
 				<div class="row">
 					<div class="col-xs-6">
-						<form:input path="user_firstname" id="firstname"
-							required="true" class="form-control input-lg"
-							placeholder="First Name" onkeyup="validate()" />
+						<form:input path="user_firstname" id="firstname" required="true"
+							class="form-control input-lg" placeholder="First Name"
+							onkeyup="validate()" />
 						<c:forEach
 							items="${flowRequestContext.messageContext.getMessagesBySource('user_firstname')}"
 							var="err">
@@ -141,8 +137,9 @@ function validate(){
 					</div>
 				</div>
 				<form:input path="mail_id"
-					pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$" required="true"
-					class="form-control input-lg" placeholder="Your Email" />
+					pattern="[a-z0-9._%+-]+@[gmail]+\.[com]{2,3}$" required="true"
+					class="form-control input-lg" placeholder="Your Email"
+					title="Please enter a valid gmail account mail address" />
 				<c:forEach
 					items="${flowRequestContext.messageContext.getMessagesBySource('mail_id')}"
 					var="err">
@@ -169,6 +166,8 @@ function validate(){
 
 				<form:input type="password" id="password" path="password"
 					name="password" required="true" class="form-control input-lg"
+					pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+					title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
 					placeholder="Password" />
 				<c:forEach
 					items="${flowRequestContext.messageContext.getMessagesBySource('password')}"
@@ -206,22 +205,21 @@ function validate(){
 					</div>
 				</div>
 				<script>
+					function validatePassword() {
+						var password = document.getElementById("password"), confirmpassword = document
+								.getElementById("confirmpassword")
 
- function validatePassword(){
-	 var password = document.getElementById("password")
-	 ,confirmpassword = document.getElementById("confirmpassword")
-	  
-	if(password.value != confirmpassword.value){
-		confirmpassword.setCustomValidity("Passwords Don't Match");
-	}
-	else {
-		confirmpassword.setCustomValidity("");
-	}
-	 
-}
- password.onchange=validatePassword;
- confirmpassword.onkeyup=validatePassword;	
-</script>
+						if (password.value != confirmpassword.value) {
+							confirmpassword
+									.setCustomValidity("Passwords Don't Match");
+						} else {
+							confirmpassword.setCustomValidity("");
+						}
+
+					}
+					password.onchange = validatePassword;
+					confirmpassword.onkeyup = validatePassword;
+				</script>
 			</form:form>
 
 		</div>

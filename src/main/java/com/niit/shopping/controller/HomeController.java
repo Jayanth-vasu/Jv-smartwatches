@@ -42,12 +42,19 @@ public class HomeController {
 
 	@RequestMapping({ "/", "/index" })
 	public String index(HttpSession session, Principal activeuser) {
+		try{
 		session.setAttribute("listbrand", productService.listBrands());
 		if (activeuser != null) {
 			session.setAttribute("cartNumber", cartService.cartNumber(activeuser.getName()));
 		}
 		session.setAttribute("listproduct", productService.listProducts());
+		
+		
 		return "index";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 
 	}
 
@@ -55,9 +62,13 @@ public class HomeController {
 
 	@RequestMapping(value = "/brand/{product_brand}")
 	public String productBrand(@PathVariable("product_brand") String brand_name, HttpSession session) {
-		session.setAttribute("brand1", brand_name);
+		try{session.setAttribute("brand1", brand_name);
 		System.out.println(brand_name);
 		return "brand";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 
 	@RequestMapping(value = "/brand1/{brand}")
@@ -72,10 +83,14 @@ public class HomeController {
 
 	@RequestMapping("/view/{product_id}")
 	public String viewProduct(@PathVariable("product_id") int product_id, HttpSession session) {
-
+		try{
 		session.setAttribute("productViewById", product_id);
 		System.out.println(product_id);
 		return "viewproductbyid";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 
 	@RequestMapping("/viewProduct/{product_id}")
@@ -92,17 +107,19 @@ public class HomeController {
 	
 	@RequestMapping(value="/cart/quantity")
 	public String setQuantity(){
-		
-		
-		
+		try{
 		return "redirect:/cartcheckout";
-		
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 	
 	
 
 	@RequestMapping(value = "/shippingaddress")
 	public String shippingaddress() {
+		
 		return "shippingaddress";
 	}
 	
@@ -123,8 +140,13 @@ public class HomeController {
 	
 	@RequestMapping("/myorder")
 	public String myOrderpage(HttpSession session,Principal username){
+		try{
 		session.setAttribute("ordernumber",productService.getOrderNumber(username.getName()));
 		return "myorder";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 	
 	@RequestMapping("/myorderlist")
@@ -135,8 +157,9 @@ public class HomeController {
 	
 	@RequestMapping("/cancelorder/{cart_id}/{quantity}")
 	public String cancelorder(@PathVariable("cart_id") int cart_id ,@PathVariable("quantity") int quantity,Principal username){
+		try{
 		//cancel an order with username
-		productService.cancelorder(username.getName());
+		productService.cancelorder(username.getName(),cart_id);
 		
 		
 		//updating stock
@@ -157,46 +180,76 @@ public class HomeController {
 		productService.deleteCart(cart_id,username.getName());
 		
 		
-		
-		
-		
-		
-		
 		return "redirect:/myorder";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 
 	
 	@RequestMapping(value = "/motobrand")
 	public String motobrand() {
+		try{
 		return "motobrand";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 
 	
 	@RequestMapping(value = "/huaweibrand")
 	public String huaweibrand() {
+		try{
 		return "huaweibrand";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 
 	@RequestMapping(value = "/asusbrand")
 	public String asusbrand() {
-		return "asusbrand";
+		try{
+			return "asusbrand";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 
 	@RequestMapping(value = "/samsungbrand")
 	public String samsungbrand() {
-		return "samsungbrand";
+		
+		try{
+			return "samsungbrand";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 
 	
 
 	@RequestMapping(value = "/manage")
 	public String manage() {
+		try{
 		return "manage";
+		}
+		catch (Exception e) {
+		return "404";
+		}
 	}
 
 	@RequestMapping(value = "/loginerror")
 	public String loginerror() {
+		try{
 		return "loginerror";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 
 	@RequestMapping(value = "/403")

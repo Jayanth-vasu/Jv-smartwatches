@@ -121,7 +121,7 @@
 
 
 			<div class="col-xs-3">
-				<img src="<c:url value="/resources/img/{{prd.image_name}}" />"
+				<img src="<c:url value="/resources/img/{{prd.image_name}}" />"style="width:75%"
 					class="img-responsive">
 			</div>
 
@@ -130,8 +130,11 @@
 				<h5>{{prd.product_brand}}</h5>
 
 				<h5 ng-if="prd.stock>'0'">Available in stock: {{prd.stock}}</h5>
+				
 
 				<h5 ng-if="prd.stock=='0'" style="color: red">Out of stock</h5>
+				
+				<h5>{{prd.product_description}}</h5>
 
 			</div>
 
@@ -169,7 +172,7 @@
 						<div class="col-xs-6" ng-if="prd.stock>'0'">
 							<a href="<c:url value='/view/{{prd.product_id}}' />"><button
 									id="view">
-									<span class="	glyphicon glyphicon-info-sign"></span> View
+									<span class="glyphicon glyphicon-info-sign"></span> View
 								</button> </a>
 						</div>
 					</div>

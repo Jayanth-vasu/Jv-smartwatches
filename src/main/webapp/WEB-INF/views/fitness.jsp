@@ -55,6 +55,7 @@
 </script>
 
 <div class="container">
+
 	<div class="row">
 		<div class="col-xs-12">
 			<a><center>
@@ -88,7 +89,7 @@
 	data-ng-controller="smartnotifiersController">
 		<h2></h2>
 
-
+<h1 align="center">FITNESS AND HEALTH</h1>
 		<div id="product" class="row"
 			data-ng-repeat="cat in smartnotifiers | filter:category">
 
@@ -168,7 +169,7 @@
 
 	</div>
 	
-
+<%@ include file="/WEB-INF/views/footer.jsp"%>
 
 
 

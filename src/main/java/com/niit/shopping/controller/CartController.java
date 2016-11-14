@@ -34,7 +34,7 @@ public class CartController {
 
 	@RequestMapping("/addtocart/{product_id}")
 	public String addtocart1(@PathVariable("product_id") int product_id, Principal activeuser, HttpSession session) {
-
+		try{
 		if (activeuser.getName() == null) {
 			return "redirect:/login";
 		} else {
@@ -84,11 +84,19 @@ public class CartController {
 			return "mycart";
 		}
 	}
-
+		catch(Exception e){
+			return "404";
+		}
+	}
 	@RequestMapping("/mycart")
 	public String viewmycart(Principal activeuser, HttpSession session) {
+		try{
 		session.setAttribute("cartNumber", cartService.cartNumber(activeuser.getName()));
 		return "mycart";
+		}
+		catch(Exception e){
+			return "404";
+		}
 	}
 
 	@RequestMapping("/mycartlist")
@@ -99,30 +107,43 @@ public class CartController {
 		 * 
 		 * cart=(productService.getTotalPrice(activeuser.getName()));
 		 */
-
+		try{
 		return cartService.getCartByUser(activeuser.getName());
+		}
+		catch(Exception e){
+			e.printStackTrace();
+			return cartService.getCartByUser(activeuser.getName());
+		}
 
 	}
 
 	@RequestMapping("/removecartproduct/{cart_id}")
 	public String removefromcart(@PathVariable("cart_id") int cart_id, Principal activeuser, HttpSession session) {
-
+		try{
 		cartService.removeCartProduct(cart_id);
 
 		session.setAttribute("cartNumber", cartService.cartNumber(activeuser.getName()));
 
 		return "redirect:/mycart";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 
 	}
 
 	@RequestMapping("/clearall")
 	public String clearall(HttpSession session, Principal activeuser) {
-
+		try{
 		cartService.clearall(activeuser.getName());
 
 		session.setAttribute("cartNumber", cartService.cartNumber(activeuser.getName()));
 
 		return "redirect:/mycart";
+		}
+		catch (Exception e) {
+			return "404";
+		}
 	}
 
 }

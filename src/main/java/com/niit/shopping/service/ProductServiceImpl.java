@@ -168,8 +168,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void cancelorder(String name) {
-		productDAO.cancelorder(name);
+	public void cancelorder(String name,int cart_id) {
+		productDAO.cancelorder(name,cart_id);
 		
 	}
 
@@ -189,6 +189,12 @@ public class ProductServiceImpl implements ProductService {
 	public List<Cart> getCartByCart_id(int cart_id, String name) {
 		
 		return productDAO.getCartByCart_id(cart_id,name);
+	}
+
+	@Override
+	public List<Cart> getCartlistByStatus(String username) {
+		
+		return productDAO.getCartlistByStatus(username);
 	}
 
 	

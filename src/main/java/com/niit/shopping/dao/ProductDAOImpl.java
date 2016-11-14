@@ -199,7 +199,7 @@ boolean isvalid=false;
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<OrderDetails> getOrderlist(String name) {
-		String hql = "from OrderDetails where mail_id='"+name+"'";
+		String hql = "from OrderDetails where mail_id='"+name+"' and sentMail='false'";
 		Query query = session.getCurrentSession().createQuery(hql);
 		List<OrderDetails> orderDetails = query.list();
 		return orderDetails;
@@ -260,8 +260,8 @@ boolean isvalid=false;
 	}
 
 	@Override
-	public void cancelorder(String name) {
-		session.getCurrentSession().createQuery("delete from OrderDetails where mail_id='"+name+"'").executeUpdate();
+	public void cancelorder(String name,int cart_id) {
+		session.getCurrentSession().createQuery("delete from OrderDetails where mail_id='"+name+"' and cart_id='"+cart_id+"'").executeUpdate();
 		
 	}
 
@@ -284,6 +284,15 @@ boolean isvalid=false;
 		Query query = session.getCurrentSession().createQuery(hql);
 		List<Cart> cart= query.list();
 		return cart;
+	}
+
+	@Override
+	public List<Cart> getCartlistByStatus(String username) {
+		String hql = "from Cart where mail_id=" + "'" + username + "' and orderstatus='true'";
+		Query query = session.getCurrentSession().createQuery(hql);
+		@SuppressWarnings("unchecked")
+		List<Cart> getCartByUser = (List<Cart>) query.list();
+		return getCartByUser;
 	}
 
 	
